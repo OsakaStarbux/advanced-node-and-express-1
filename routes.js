@@ -3,15 +3,19 @@ const bcrypt = require("bcrypt");
 
 // custom middleware: ensureAuthenticated
 
-const ensureAuthenticated = function(req, res, next) {
+
+
+module.exports = function(app, db) {
+  
+  const ensureAuthenticated = function(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
   console.log("redirecting: not authed");
   res.redirect("/");
 };
-
-module.exports = function(app, db) {
+  
+  
   app.route("/").get((req, res) => {
     //Change the response to render the Pug template
     res.render("index", {
